@@ -12,8 +12,8 @@ ENV LANG C.UTF-8
 
 # Install requirements for add-on
 RUN apk add --no-cache jq zabbix-agent2 && \
-    addgroup -g 1003 docker && \
-    addgroup zabbix docker && \
+    addgroup -g 102 docker || true && \   # Ensure group 102 exists (matches docker.sock on host)
+    addgroup zabbix docker && \           # Add zabbix user to docker group
     mkdir -p /etc/zabbix/zabbix_agent2.d/plugins.d
 
 # Copy zabbix-agent2 plugins
